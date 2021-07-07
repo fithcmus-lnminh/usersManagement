@@ -1,7 +1,8 @@
 import "./App.css";
+import AddUser from "./components/Users/AddUser";
 
 function App() {
-  return <div>Hello React</div>;
+  return <AddUser />;
 }
 
 export default App;
