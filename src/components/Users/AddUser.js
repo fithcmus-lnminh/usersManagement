@@ -3,7 +3,7 @@ import Card from "../UI/Card";
 import styles from "./AddUser.module.css";
 import Button from "../UI/Button";
 
-function AddUser() {
+function AddUser(props) {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
 
@@ -12,6 +12,15 @@ function AddUser() {
     if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0)
       return;
     if (+enteredAge < 1) return; //+enteredAge is cast age to number for safe
+
+    const user = {
+      name: enteredUsername,
+      age: enteredAge,
+      id: Math.random().toString(),
+    };
+
+    props.onAddUser(user);
+
     setEnteredUsername("");
     setEnteredAge("");
   };

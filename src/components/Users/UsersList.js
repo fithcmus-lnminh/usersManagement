@@ -7,8 +7,9 @@ function UsersList(props) {
     <Card className={styles.users}>
       <ul>
         {props.users.map((user) => (
-          <li>
-            {user.name} ({user.age} {user.age === 1 ? "year old" : "years old"})
+          <li key={user.id}>
+            {user.name} ({user.age} {+user.age === 1 ? "year old" : "years old"}
+            )
           </li>
         ))}
       </ul>
