@@ -5,8 +5,8 @@ import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
 
 function AddUser(props) {
-  const nameInputRef = useRef();
-  const ageInputRef = useRef();
+  const nameInputRef = useRef(); //when render, it has a current prop which holds the actual value (object)
+  const ageInputRef = useRef(); //connected to the DOM elements below
 
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
@@ -14,6 +14,7 @@ function AddUser(props) {
 
   const addUserHandler = (event) => {
     event.preventDefault();
+    console.log(nameInputRef.current.value); //value of input. No need to listen event per keystroke
     if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
       setError({
         title: "Invalid input",
