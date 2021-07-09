@@ -3,6 +3,7 @@ import Card from "../UI/Card";
 import styles from "./AddUser.module.css";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
+import Wrapper from "../Helpers/Wrapper";
 
 function AddUser(props) {
   const [enteredUsername, setEnteredUsername] = useState("");
@@ -52,7 +53,7 @@ function AddUser(props) {
 
   //Card cannot be CSS -> className like props to Card.js
   return (
-    <div>
+    <>
       {error && (
         <ErrorModal
           title={error.title}
@@ -79,7 +80,7 @@ function AddUser(props) {
           <Button type="submit">Add User</Button>
         </form>
       </Card>
-    </div>
+    </>
   );
 }
 
