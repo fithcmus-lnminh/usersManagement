@@ -8,21 +8,20 @@ function AddUser(props) {
   const nameInputRef = useRef(); //when render, it has a current prop which holds the actual value (object)
   const ageInputRef = useRef(); //connected to the DOM elements below
 
-  const [enteredUsername, setEnteredUsername] = useState("");
-  const [enteredAge, setEnteredAge] = useState("");
   const [error, setError] = useState();
 
   const addUserHandler = (event) => {
     event.preventDefault();
-    console.log(nameInputRef.current.value); //value of input. No need to listen event per keystroke
-    if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+    const enteredName = nameInputRef.current.value; //value of input. No need to listen event per keystroke
+    const enteredUserAge = ageInputRef.current.value;
+    if (enteredName.trim().length === 0 || enteredUserAge.trim().length === 0) {
       setError({
         title: "Invalid input",
         message: "Please enter a valid name or age (non-empty values)",
       });
       return;
     }
-    if (+enteredAge < 1) {
+    if (+enteredUserAge < 1) {
       setError({
         title: "Invalid age",
         message: "Please enter a valid age (age > 0)",
@@ -31,23 +30,17 @@ function AddUser(props) {
     } //+enteredAge is cast age to number for safe
 
     const user = {
-      name: enteredUsername,
-      age: enteredAge,
+      name: enteredName,
+      age: enteredUserAge,
       id: Math.random().toString(),
     };
 
     props.onAddUser(user);
-
-    setEnteredUsername("");
-    setEnteredAge("");
-  };
-
-  const usernameChangeHandler = (event) => {
-    setEnteredUsername(event.target.value);
-  };
-
-  const ageChangeHandler = (event) => {
-    setEnteredAge(event.target.value);
+    nameInputRef.current.value = "";
+    ageInputRef.current.value = ""; //RARELY do that, no recommend to change elements' value via refs
+    //-> useState.
+    //If you only want to read value or access to element (convenient) -> useRef is better
+    //If you want to read and reset or change value -> useState, a bit more code
   };
 
   const errorHandler = () => {
@@ -70,16 +63,12 @@ function AddUser(props) {
           <input
             type="text"
             placeholder="Type your name here..."
-            onChange={usernameChangeHandler}
-            value={enteredUsername}
             ref={nameInputRef /*connect element to ref*/}
           />
           <label htmlFor="age">Age</label>
           <input
             type="number"
             placeholder="Type your age here..."
-            onChange={ageChangeHandler}
-            value={enteredAge}
             ref={ageInputRef /*connect element to ref*/}
           />
           <Button type="submit">Add User</Button>
