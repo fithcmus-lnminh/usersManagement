@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Card from "../UI/Card";
 import styles from "./AddUser.module.css";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
 
 function AddUser(props) {
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
   const [error, setError] = useState();
@@ -68,6 +71,7 @@ function AddUser(props) {
             placeholder="Type your name here..."
             onChange={usernameChangeHandler}
             value={enteredUsername}
+            ref={nameInputRef /*connect element to ref*/}
           />
           <label htmlFor="age">Age</label>
           <input
@@ -75,6 +79,7 @@ function AddUser(props) {
             placeholder="Type your age here..."
             onChange={ageChangeHandler}
             value={enteredAge}
+            ref={ageInputRef /*connect element to ref*/}
           />
           <Button type="submit">Add User</Button>
         </form>
